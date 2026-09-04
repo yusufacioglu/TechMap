@@ -63,6 +63,8 @@ function Icon({ name }) {
         grid: <><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></>,
         history: <><path d="M3 12a9 9 0 1 0 3-6.7" /><path d="M3 4v5h5" /><path d="M12 7v5l3 2" /></>,
         settings: <><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" /><circle cx="12" cy="12" r="4" /></>,
+        moon: <><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" /></>,
+        sun: <><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></>,
         arrow: <><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></>,
         globe: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.2 2.5 3.3 5.5 3.3 9S14.2 18.5 12 21c-2.2-2.5-3.3-5.5-3.3-9S9.8 5.5 12 3Z" /></>,
         check: <path d="m5 12 4 4L19 6" />,
@@ -72,6 +74,7 @@ function Icon({ name }) {
 
 function App() {
     const [url, setUrl] = useState('linear.app')
+    const [isDarkMode, setIsDarkMode] = useState(() => window.localStorage.getItem('techmap-theme') === 'dark')
     const [activeView, setActiveView] = useState('overview')
     const [analysis, setAnalysis] = useState(analyses['linear.app'])
     const [isAnalyzing, setIsAnalyzing] = useState(false)
@@ -112,7 +115,15 @@ function App() {
         ['Other', `${Math.max(6, 100 - (analysis.technologies[0].percentage + analysis.technologies[1].percentage + analysis.technologies[2].percentage + (analysis.technologies[3]?.percentage || 0)))}%`, '#d8d5ce'],
     ]
 
-    return <div className="app-shell">
+    const toggleTheme = () => {
+        setIsDarkMode((currentValue) => {
+            const nextValue = !currentValue
+            window.localStorage.setItem('techmap-theme', nextValue ? 'dark' : 'light')
+            return nextValue
+        })
+    }
+
+    return <div className={`app-shell ${isDarkMode ? 'dark-mode' : ''}`}>
         <aside className="sidebar">
             <div className="brand"><span className="brand-mark">⌁</span><span>stacktrace</span></div>
             <div className="workspace-label">WORKSPACE</div>
@@ -124,7 +135,7 @@ function App() {
         </aside>
 
         <main className="main-content">
-            <header className="topbar"><div className="breadcrumb"><span>Workspace</span><b>/</b><strong>{activeView === 'history' ? 'History' : 'Overview'}</strong></div><div className="top-actions"><span className="status"><i /> All systems operational</span><button className="help-button">?</button></div></header>
+            <header className="topbar"><div className="breadcrumb"><span>Workspace</span><b>/</b><strong>{activeView === 'history' ? 'History' : 'Overview'}</strong></div><div className="top-actions"><span className="status"><i /> All systems operational</span><button type="button" className="theme-button" onClick={toggleTheme} aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'} title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}><Icon name={isDarkMode ? 'sun' : 'moon'} /></button><button className="help-button">?</button></div></header>
             <div className="content-wrap">
                 <section className="intro"><div><p className="eyebrow">WEBSITE INTELLIGENCE</p><h1>Understand what powers the web.</h1><p className="intro-copy">Analyze any website to uncover its technology stack,<br className="desktop-break" /> frameworks, and the tools behind it.</p></div><div className="scan-orbit"><div className="orbit orbit-one" /><div className="orbit orbit-two" /><span className="orbit-dot" /></div></section>
                 <form className="analyzer-form" onSubmit={handleAnalyze}><div className="url-field"><Icon name="globe" /><input value={url} onChange={(event) => setUrl(event.target.value)} placeholder="Enter a website URL" aria-label="Website URL" /><span className="secure">SECURE</span></div><button className="analyze-button" type="submit" disabled={isAnalyzing}>{isAnalyzing ? 'Analyzing...' : <>Analyze <Icon name="arrow" /></>}</button></form>

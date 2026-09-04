@@ -227,6 +227,22 @@ nav {
     font-size: 12px;
 }
 
+.theme-button {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #dfe3e7;
+    background: #fff;
+    color: #727b85;
+    border-radius: 50%;
+}
+
+.theme-button .icon {
+    width: 14px;
+    height: 14px;
+}
+
 .content-wrap {
     max-width: 1110px;
     margin: 0 auto;
@@ -976,4 +992,120 @@ nav {
         font-size: 10px;
         padding: 8px;
     }
+}
+
+.dark-mode {
+    --ink: #e8edf2;
+    --muted: #9ca8b5;
+    --line: #2d3742;
+    background: #151a20;
+    color: var(--ink);
+}
+
+.dark-mode .sidebar,
+.dark-mode .topbar,
+.dark-mode .url-field,
+.dark-mode .panel {
+    background: #1c232b;
+}
+
+.dark-mode .brand,
+.dark-mode .breadcrumb strong,
+.dark-mode .intro h1,
+.dark-mode .result-title h2,
+.dark-mode .panel h3,
+.dark-mode .legend-name,
+.dark-mode .category-row strong,
+.dark-mode .activity-row strong {
+    color: #e8edf2;
+}
+
+.dark-mode .breadcrumb,
+.dark-mode .nav-item,
+.dark-mode .intro-copy,
+.dark-mode .result-meta,
+.dark-mode .legend-name small,
+.dark-mode .insight-copy,
+.dark-mode .insight-stat span,
+.dark-mode .activity-row small,
+.dark-mode .activity-row b,
+.dark-mode .legend-percent,
+.dark-mode .category-row,
+.dark-mode .url-field input,
+.dark-mode .url-field .icon {
+    color: #9ca8b5;
+}
+
+.dark-mode .topbar,
+.dark-mode .profile,
+.dark-mode .results-header,
+.dark-mode .activity-row {
+    border-color: #2d3742;
+}
+
+.dark-mode .nav-item.active {
+    color: #b8abff;
+    background: #302b50;
+}
+
+.dark-mode .nav-count {
+    background: #2b3440;
+    color: #aeb8c2;
+}
+
+.dark-mode .theme-button,
+.dark-mode .help-button {
+    border-color: #3b4652;
+    background: #222b34;
+    color: #d7dee5;
+}
+
+.dark-mode .url-field input {
+    background: transparent;
+}
+
+.dark-mode .url-field input::placeholder,
+.dark-mode .secure,
+.dark-mode .quick-sites span,
+.dark-mode .section-kicker,
+.dark-mode .workspace-label {
+    color: #7f8b98;
+}
+
+.dark-mode .export-button {
+    border-color: #3b4652;
+    color: #aeb8c2;
+}
+
+.dark-mode .site-favicon,
+.dark-mode .avatar {
+    background: #332e59;
+    color: #c0b6ff;
+}
+
+.dark-mode .insight-panel {
+    background: #1c2926;
+}
+
+.dark-mode .donut::before {
+    background: #1c232b;
+}
+
+.dark-mode .category-track {
+    background: #2d3742;
+}
+
+.dark-mode .activity-avatar.green {
+    color: #9edbb8;
+    background: #244637;
+}
+
+.dark-mode .activity-avatar.orange {
+    color: #f0b08b;
+    background: #4b3024;
+}
+
+.dark-mode .activity-avatar.blue {
+    color: #a8c7f2;
+    background: #293e5d;
 }
